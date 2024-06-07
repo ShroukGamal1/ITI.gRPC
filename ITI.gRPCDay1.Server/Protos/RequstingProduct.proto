@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option csharp_namespace = "ITI.gRPCDay1.Server.Protos";
+service ProductService {
+	rpc GetProduct(ProductId) returns (ResponseState);
+	rpc AddProduct(Product) returns(Product);
+	rpc UpdateProduct(Product)returns(Product);
+	rpc AddBulkProducts(stream Product)returns(NumOfProducts);
+	rpc GenerateProductReport(FilterDetails)returns(stream Product);
+}
+
+message ProductId{
+	int32 value=1;
+}
+message ResponseState{
+	bool exist=1;
+}
+message Product{
+	int32 id=1;
+	string name=2;
+	double price=3;
+	int32 quantity=4;
+	Category Category=5;
+}
+enum Category{
+	unknown=0;
+    Food=1;
+	Drink=2;
+}
+message NumOfProducts{
+	int32 value=1;
+}
+message FilterDetails{
+	bool OrderByPrice=1;
+	Category IsGroupedBySpecificCatergory=2;
+}
